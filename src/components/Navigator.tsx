@@ -1,33 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import NavigatorItem from './NavigatorItem';
 
 export default function Navigator() {
   return (
     <nav className="navbar navbar-light">
       <div className="container">
-        <a className="navbar-brand" href="/#/">
+        <Link className="navbar-brand" to="/">
           conduit
-        </a>
+        </Link>
         <ul className="nav navbar-nav pull-xs-right">
-          <li className="nav-item">
-            <a className="nav-link active" href="/#/">
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/article">
-              <i className="ion-compose"></i>&nbsp;New Post
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/#/settings">
-              <i className="ion-gear-a"></i>&nbsp;Settings
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/#/register">
-              Sign up
-            </a>
-          </li>
+          <NavigatorItem href="/">Home</NavigatorItem>
+          <NavigatorItem href="/article">New Post</NavigatorItem>
+          <NavigatorItem href="/settings">Settings</NavigatorItem>
+          <NavigatorItem href="/login">Sign in</NavigatorItem>
+          <NavigatorItem href="/register">Sign up</NavigatorItem>
         </ul>
       </div>
     </nav>
