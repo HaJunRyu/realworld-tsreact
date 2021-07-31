@@ -1,7 +1,25 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import realworldApis from '../apis/realworldApi';
 import ArticlePreview from '../components/ArticlePreview';
+import PageNation from '../components/PageNation';
+import { Article } from '../types/Article';
 
 export default function Home() {
+  const [articles, setArticles] = useState<Array<Article>>([]);
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const { articles } = await realworldApis.getArticles({ limit: 10 });
+
+      console.log(articles);
+
+      setArticles(articles);
+    };
+
+    getArticles();
+  }, []);
+
   return (
     <div className="home-page">
       <div className="banner">
@@ -27,22 +45,12 @@ export default function Home() {
                   </Link>
                 </li>
               </ul>
+              {articles.length === 0 && 'Loading...'}
             </div>
 
-            <ArticlePreview
-              author={{
-                userName: 'Hajun',
-                profileSrc: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-              }}
-              slug=""
-            />
-            <ArticlePreview
-              author={{
-                userName: 'Hajun',
-                profileSrc: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-              }}
-              slug=""
-            />
+            {articles.map(article => (
+              <ArticlePreview key={article.slug} article={article} />
+            ))}
           </div>
 
           <div className="col-md-3">
@@ -78,6 +86,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <PageNation />
       </div>
     </div>
   );
